@@ -5,22 +5,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
-
+//out.println(request.getParameter("idx") + ", " + request.getParameter("passwd"));
+//DELETE 구문을 사용하여 글번호(idx)와 패스워드(passwd)가 일치하는 게시물 삭제
+//삭제성공시 글목록(list.jsp)로 이동하고
+//삭제 실패 시(패스워드 틀림 등) 자바스크립트를 사용하여 "글 삭제 실패!" 출력 후 이전페이지로 돌아간다
 int idx = Integer.parseInt(request.getParameter("idx"));
 String passwd = request.getParameter("passwd");
 
+//0. DB 연결에 필요한 문자열 4개 저장
 String driver = "com.mysql.cj.jdbc.Driver";
 String url = "jdbc:mysql://localhost:3306/study_jsp3";
 String user = "root";
 String password = "1234";
 
-//out.println(request.getParameter("idx") + ", " + request.getParameter("passwd"));
-//DELETE 구문을 사용하여 글번호(idx)와 패스워드(passwd)가 일치하는 게시물 삭제
-//삭제성공시 글목록(list.jsp)로 이동하고
-//삭제 실패 시(패스워드 틀림 등) 자바스크립트를 사용하여 "글 삭제 실패!" 출력 후 이전페이지로 돌아간다
-
+//1단계. 드라이버 클래스 로드
 Class.forName(driver);
+
+//2단계. DB 연결
 Connection con = DriverManager.getConnection(url, user, password);
+
 //3단계. SQL 구문 작성 및 전달
 // 방법이 두가지가 있다.
 //=> 1) 번호(idx)와 패스워드(passwd)가 모두 일치하는 게시물 삭제(DELETE) - 사용할 방법

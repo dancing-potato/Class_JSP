@@ -46,6 +46,7 @@
 //		=>오름차순(0->9, A->Z, 가->힣), 내림차순(9->0, Z->A, 힣->가)
 		String sql = "SELECT * FROM board ORDER BY idx DESC";
 		PreparedStatement pstmt = con.prepareStatement(sql);
+		
 		ResultSet rs = pstmt.executeQuery();
 
 // 		while문을 사용하여 다음 레코드 존재(rs.next()가 true)할 동안 반복

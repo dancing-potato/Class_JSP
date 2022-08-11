@@ -75,7 +75,7 @@
 			</tr>	
 			<tr>
 				<th>제목</th><td colspan="3"><%=rs.getString("subject") %></td>
-				<th>조회수</th><td><%=rs.getInt("readCount") %></td>
+				<th>조회수</th><td><%=rs.getInt("readcount") %></td>
 			</tr>
 			<tr>
 				<th>내용</th><td colspan="5"><%=rs.getString("content") %></td>
