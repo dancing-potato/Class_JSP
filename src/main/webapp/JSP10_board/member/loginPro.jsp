@@ -7,7 +7,6 @@
 <%
 String id = request.getParameter("id");
 String passwd = request.getParameter("passwd");
-// out.println(id + ", " + passwd);
 
 // member 테이블에서 id 가 파라미터와 같고, passwd 도 파라미터와 같은 레코드를 조회(SELECT)
 // => 조회 결과가 있을 경우 로그인 성공이므로 session 객체에 "sId" 라는 속성으로 아이디를 저장하고
