@@ -8,38 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 //study_jsp3.board 테이블의 데이터 처리 작업을 담당하는 BoardDAO클래스 저의
-public class BoardDAO {
-	
-	// DB 연결 작업을 수행할 공통 메서드 getConnection() 메서드 정의
-	// => 파라미터 : 없음    리턴타입 : java.sql.Connection 객체(con)
-	public Connection getConnection() {
-		// DB 연결 정보를 저장할 Connection 타입 변수 선언
-		Connection con = null;
-		
-		// DB 연결에 필요한 정보 문자열(4가지)을 변수에 별도로 저장
-		String driver = "com.mysql.cj.jdbc.Driver"; // 드라이버 클래스
-		String url = "jdbc:mysql://localhost:3306/study_jsp3"; // DB 접속 정보
-		String user = "root"; // 계정명
-		String password = "1234"; // 패스워드
-
-		try {
-			// 1단계. 드라이버 클래스 로드
-			Class.forName(driver);
-
-			// 2단계. DB 연결
-			// => 연결 성공 시 리턴되는 Connection 타입 객체를 java.sql.Connection 타입으로 저장
-			con = DriverManager.getConnection(url, user, password);
-		}  catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-		// DB 연결 정보가 저장된 Connection 객체 리턴
-		return con;
-	}
-	
-	
-	
+public class BoardDAO_Backup {
 	//board 테이블 글쓰기 작업(INSERT)을 수행하는 insert() 메서드 정의
 	//=> 파라미터 : 게시물 정보(작성자, 패스워드, 글제목, 글내용)
 //	public void insert(String name, String passwd, String subject,String content) {
@@ -116,14 +85,20 @@ public class BoardDAO {
 //			 => 단, 글번호(idx)는 가장 큰 번호 + 1 값으로 새로 설정
 //			    작성일(date)은 데이터베이스의 now() 함수 사용
 //			    조회수(readcount)는 기본값인 0 으로 설정
-			
-			// DB 연결 작업을 수행하는 공통메서드 getConnection() 호출하여 Connection 객체 리턴
-			// => 기존 0단계,1단계, 2단계 코드가 중복되었으나 별도의 메서드로 분리(모듈화)하여 
-			// 중복코드를 제거할 수 있다!
-			// 0~2단계 공통작업
-			Connection con = getConnection();
-			
-			
+			// DB 연결에 필요한 정보 문자열(4가지)을 변수에 별도로 저장
+			String driver = "com.mysql.cj.jdbc.Driver"; // 드라이버 클래스
+			String url = "jdbc:mysql://localhost:3306/study_jsp3"; // DB 접속 정보
+			String user = "root"; // 계정명
+			String password = "1234"; // 패스워드
+
+			// 1단계. 드라이버 클래스 로드
+			Class.forName(driver);
+
+			// 2단계. DB 연결
+			// => 연결 성공 시 리턴되는 Connection 타입 객체를 java.sql.Connection 타입으로 저장
+			Connection con = DriverManager.getConnection(url, user, password);
+
+			// -------------------------------------------------------------------------------------------
 			// 1) 새 글 번호 계산
 			// => board 테이블의 모든 레코드의 idx 컬럼값 중 가장 큰 값 조회(데이터베이스 max() 함수 활용)
 			int idx = 1; // 새 글 번호를 저장할 변수 선언(기본값 1)
@@ -159,7 +134,11 @@ public class BoardDAO {
 //		    insertCount 가 0보다 크면 "list.jsp" 페이지로 포워딩하고
 //		    아니면, 자바스크립트를 통해 "글쓰기 실패!" 출력 후 이전페이지로 돌아가기
 			insertCount = pstmt.executeUpdate();
-		}  catch (SQLException e) {
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return insertCount;
@@ -171,9 +150,18 @@ public class BoardDAO {
 		int deleteCount = 0;// 리턴값을 저장할 변수 선언
 		
 		try {
-			// 0~2단계 공통작업
-			Connection con = getConnection();
-			
+			// 0단계. DB 연결에 필요한 문자열 4개 저장
+			String driver = "com.mysql.cj.jdbc.Driver";
+			String url = "jdbc:mysql://localhost:3306/study_jsp3";
+			String user = "root";
+			String password = "1234";
+
+			// 1단계. 드라이버 클래스 로드
+			Class.forName(driver);
+
+			// 2단계. DB 연결
+			Connection con = DriverManager.getConnection(url, user, password);
+			// out.println("DB 연결 완료!");
 
 			// 3단계. SQL 구문 작성 및 전달
 			// => 1) 번호(idx)와 패스워드(passwd)가 모두 일치하는 게시물 삭제(DELETE) - 사용할 방법
@@ -187,7 +175,11 @@ public class BoardDAO {
 
 			// 4단계. SQL 구문 실행 및 결과 처리
 			deleteCount = pstmt.executeUpdate();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -203,8 +195,17 @@ public class BoardDAO {
 			ArrayList boardList = null;
 			
 			try {
-				// 0~2단계 공통작업
-				Connection con = getConnection();
+				// 0단계. DB 연결에 필요한 문자열 4개 저장
+				String driver = "com.mysql.cj.jdbc.Driver";
+				String url = "jdbc:mysql://localhost:3306/study_jsp3";
+				String user = "root";
+				String password = "1234";
+
+				// 1단계. 드라이버 클래스 로드
+				Class.forName(driver);
+
+				// 2단계. DB 연결
+				Connection con = DriverManager.getConnection(url, user, password);
 				
 				
 				// 3단계. sql구문 작성 및 전달
@@ -253,7 +254,10 @@ public class BoardDAO {
 					
 					
 				}
-			}  catch (SQLException e) {
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -271,8 +275,17 @@ public class BoardDAO {
 		BoardDTO board = null;
 		
 		try {
-			// 0~2단계 공통작업
-			Connection con = getConnection();
+			// 0단계. DB 연결에 필요한 문자열 4개 저장
+			String driver = "com.mysql.cj.jdbc.Driver";
+			String url = "jdbc:mysql://localhost:3306/study_jsp3";
+			String user = "root";
+			String password = "1234";
+
+			// 1단계. 드라이버 클래스 로드
+			Class.forName(driver);
+
+			// 2단계. DB 연결
+			Connection con = DriverManager.getConnection(url, user, password);
 			
 			
 			// 3단계. sql구문 작성 및 전달
@@ -301,7 +314,11 @@ public class BoardDAO {
 			}
 			
 			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// 1개 게시물 정보가 저장된 BoardDTO 객체 리턴
@@ -312,8 +329,17 @@ public class BoardDAO {
 		
 		
 		try {
-			// 0~2단계 공통작업
-			Connection con = getConnection();
+			// 0단계. DB 연결에 필요한 문자열 4개 저장
+			String driver = "com.mysql.cj.jdbc.Driver";
+			String url = "jdbc:mysql://localhost:3306/study_jsp3";
+			String user = "root";
+			String password = "1234";
+
+			// 1단계. 드라이버 클래스 로드
+			Class.forName(driver);
+
+			// 2단계. DB 연결
+			Connection con = DriverManager.getConnection(url, user, password);
 			
 			// 3단계. sql구문 작성 및 전달
 			// =>게시물 조회 전 조회수(readcount)증가 작업(+1) 수행
@@ -323,7 +349,11 @@ public class BoardDAO {
 			
 			// 4단계. SQL구문 실행 및 결과 처리
 			pstmt.executeUpdate();
-		}  catch (SQLException e) {
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		
