@@ -1,6 +1,6 @@
 package jsp11_javabean;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class BoardDTO {
 // 1. board 테이블의 각 칼럼에 대응하는 멤버변수 선언
