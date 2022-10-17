@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Test1</title>
 </head>
 <body>
 	<h1>cookieTest1.jsp</h1>
